@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const axios = require("axios");
+const { TwitterApi } = require("twitter-api-v2");
 const natural = require("natural");
 
 const app = express();
@@ -9,6 +9,16 @@ app.use(bodyParser.json());
 const SentimentAnalyzer = natural.SentimentAnalyzer;
 const PorterStemmer = natural.PorterStemmer;
 const analyzer = new SentimentAnalyzer("English", PorterStemmer, "afinn");
+
+// Replace these with your actual Twitter API credentials
+const client = new TwitterApi({
+	appKey: "BoXfRHG7qN5FOYSjUunOi4eEJ",
+	appSecret: "jLwhoU9IDP9k2aYSuWq0fwKpcoKRxIM1SBqW2AA2kgJ4aHWRS9",
+	accessToken: "1807137009237942272-6b06c9YfQ3wnwUs9y9X8KZgaMiIQzM",
+	accessSecret: "kL3sjQMJYjIKF5myxjRkoNYAUZdK867VSa8MEwH0mpHwf",
+});
+
+const twitterClient = client.readOnly;
 
 // Basic route
 app.get("/", (req, res) => {
@@ -51,27 +61,14 @@ app.get("/analyze", async (req, res) => {
 	}
 });
 
-// Analyze custom text
-app.post("/analyze-text", (req, res) => {
-	const { text } = req.body;
-	if (!text) {
-		return res.status(400).json({ error: "Text is required" });
-	}
-	const sentimentScore = analyzeSentiment(text);
-	res.json({ text, sentimentScore });
-});
-
 const fetchTwitterData = async (query) => {
-	// Mock data to simulate fetched tweets
-	return [
-		{ text: "Naspers stock is rising" },
-		{ text: "Naspers faces challenges in the market" },
-		{ text: "Naspers reports increased revenue this quarter" },
-		{ text: "Investors are worried about Naspers" },
-		{ text: "Naspers is launching a new product" },
-		{ text: "Negative sentiment about Naspers performance" },
-		{ text: "Neutral opinion on Naspers future" },
-	];
+	try {
+		const tweets = await twitterClient.v2.search(query, { max_results: 10 });
+		return tweets.data.map((tweet) => ({ text: tweet.text }));
+	} catch (error) {
+		console.error("Error fetching tweets:", error);
+		return [];
+	}
 };
 
 const analyzeSentiment = (text) => {
