@@ -1,7 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const Twitter = require("twitter");
 const natural = require("natural");
+const fs = require("fs");
+const path = require("path");
 
 const app = express();
 app.use(bodyParser.json());
@@ -9,14 +10,6 @@ app.use(bodyParser.json());
 const SentimentAnalyzer = natural.SentimentAnalyzer;
 const PorterStemmer = natural.PorterStemmer;
 const analyzer = new SentimentAnalyzer("English", PorterStemmer, "afinn");
-
-// Replace these with your actual Twitter API credentials
-const client = new Twitter({
-	consumer_key: "BoXfRHG7qN5FOYSjUunOi4eEJ",
-	consumer_secret: "jLwhoU9IDP9k2aYSuWq0fwKpcoKRxIM1SBqW2AA2kgJ4aHWRS9",
-	access_token_key: "1807137009237942272-6b06c9YfQ3wnwUs9y9X8KZgaMiIQzM",
-	access_token_secret: "kL3sjQMJYjIKF5myxjRkoNYAUZdK867VSa8MEwH0mpHwf",
-});
 
 // Basic route
 app.get("/", (req, res) => {
@@ -26,7 +19,7 @@ app.get("/", (req, res) => {
 // Fetch and analyze data
 app.get("/analyze", async (req, res) => {
 	try {
-		const twitterData = await fetchTwitterData("Naspers");
+		const twitterData = await fetchTwitterData();
 		const sentimentScores = twitterData.map((item) =>
 			analyzeSentiment(item.text)
 		);
@@ -59,10 +52,11 @@ app.get("/analyze", async (req, res) => {
 	}
 });
 
-const fetchTwitterData = async (query) => {
+const fetchTwitterData = async () => {
 	try {
-		const tweets = await client.get("search/tweets", { q: query, count: 10 });
-		return tweets.statuses.map((tweet) => ({ text: tweet.text }));
+		const dataPath = path.join(__dirname, "tweets.json");
+		const data = fs.readFileSync(dataPath, "utf8");
+		return JSON.parse(data);
 	} catch (error) {
 		console.error("Error fetching tweets:", error);
 		return [];
