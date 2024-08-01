@@ -22,7 +22,30 @@ app.get("/analyze", async (req, res) => {
 		const sentimentScores = twitterData.map((item) =>
 			analyzeSentiment(item.text)
 		);
-		res.json({ twitterData, sentimentScores });
+
+		let positive = 0;
+		let negative = 0;
+		let neutral = 0;
+
+		sentimentScores.forEach((score) => {
+			if (score > 0) {
+				positive++;
+			} else if (score < 0) {
+				negative++;
+			} else {
+				neutral++;
+			}
+		});
+
+		res.json({
+			twitterData,
+			sentimentScores,
+			statistics: {
+				positive,
+				negative,
+				neutral,
+			},
+		});
 	} catch (error) {
 		res.status(500).json({ error: error.message });
 	}
@@ -39,11 +62,15 @@ app.post("/analyze-text", (req, res) => {
 });
 
 const fetchTwitterData = async (query) => {
-	// Use Twitter API to fetch data (replace with actual API details)
-	// This is a mock function for illustration
+	// Mock data to simulate fetched tweets
 	return [
 		{ text: "Naspers stock is rising" },
 		{ text: "Naspers faces challenges in the market" },
+		{ text: "Naspers reports increased revenue this quarter" },
+		{ text: "Investors are worried about Naspers" },
+		{ text: "Naspers is launching a new product" },
+		{ text: "Negative sentiment about Naspers performance" },
+		{ text: "Neutral opinion on Naspers future" },
 	];
 };
 
