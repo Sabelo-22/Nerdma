@@ -1,47 +1,57 @@
-const { fetchTwitterData, fetchNewsData } = require("./services/dataService");
-const { analyzeSentiment } = require("./services/dataProcessor");
-const { trainModel, predict } = require("./services/predictor");
+const express = require("express");
+const bodyParser = require("body-parser");
+const axios = require("axios");
+const natural = require("natural");
 
-let model;
+const app = express();
+app.use(bodyParser.json());
+
+const SentimentAnalyzer = natural.SentimentAnalyzer;
+const PorterStemmer = natural.PorterStemmer;
+const analyzer = new SentimentAnalyzer("English", PorterStemmer, "afinn");
+
+// Basic route
+app.get("/", (req, res) => {
+	res.send("Market Trend Predictor API");
+});
 
 // Fetch and analyze data
 app.get("/analyze", async (req, res) => {
 	try {
 		const twitterData = await fetchTwitterData("Naspers");
-		const newsData = await fetchNewsData();
-
-		const combinedData = [...twitterData, ...newsData];
-		const sentimentScores = combinedData.map((item) =>
-			analyzeSentiment(item.description || item.text)
+		const sentimentScores = twitterData.map((item) =>
+			analyzeSentiment(item.text)
 		);
-
-		res.json({ combinedData, sentimentScores });
+		res.json({ twitterData, sentimentScores });
 	} catch (error) {
 		res.status(500).json({ error: error.message });
 	}
 });
 
-// Train model
-app.post("/train", async (req, res) => {
-	try {
-		const { trainingData, trainingLabels } = req.body;
-		model = await trainModel(trainingData, trainingLabels);
-		res.json({ message: "Model trained successfully" });
-	} catch (error) {
-		res.status(500).json({ error: error.message });
+// Analyze custom text
+app.post("/analyze-text", (req, res) => {
+	const { text } = req.body;
+	if (!text) {
+		return res.status(400).json({ error: "Text is required" });
 	}
+	const sentimentScore = analyzeSentiment(text);
+	res.json({ text, sentimentScore });
 });
 
-// Predict
-app.post("/predict", async (req, res) => {
-	try {
-		const { inputData } = req.body;
-		if (!model) {
-			return res.status(400).json({ error: "Model not trained yet" });
-		}
-		const prediction = predict(model, inputData);
-		res.json({ prediction });
-	} catch (error) {
-		res.status(500).json({ error: error.message });
-	}
+const fetchTwitterData = async (query) => {
+	// Use Twitter API to fetch data (replace with actual API details)
+	// This is a mock function for illustration
+	return [
+		{ text: "Naspers stock is rising" },
+		{ text: "Naspers faces challenges in the market" },
+	];
+};
+
+const analyzeSentiment = (text) => {
+	return analyzer.getSentiment(text.split(" "));
+};
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+	console.log(`Server running on http://localhost:${PORT}`);
 });
