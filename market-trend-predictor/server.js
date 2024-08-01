@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const { TwitterApi } = require("twitter-api-v2");
+const Twitter = require("twitter");
 const natural = require("natural");
 
 const app = express();
@@ -11,14 +11,12 @@ const PorterStemmer = natural.PorterStemmer;
 const analyzer = new SentimentAnalyzer("English", PorterStemmer, "afinn");
 
 // Replace these with your actual Twitter API credentials
-const client = new TwitterApi({
-	appKey: "BoXfRHG7qN5FOYSjUunOi4eEJ",
-	appSecret: "jLwhoU9IDP9k2aYSuWq0fwKpcoKRxIM1SBqW2AA2kgJ4aHWRS9",
-	accessToken: "1807137009237942272-6b06c9YfQ3wnwUs9y9X8KZgaMiIQzM",
-	accessSecret: "kL3sjQMJYjIKF5myxjRkoNYAUZdK867VSa8MEwH0mpHwf",
+const client = new Twitter({
+	consumer_key: "BoXfRHG7qN5FOYSjUunOi4eEJ",
+	consumer_secret: "jLwhoU9IDP9k2aYSuWq0fwKpcoKRxIM1SBqW2AA2kgJ4aHWRS9",
+	access_token_key: "1807137009237942272-6b06c9YfQ3wnwUs9y9X8KZgaMiIQzM",
+	access_token_secret: "kL3sjQMJYjIKF5myxjRkoNYAUZdK867VSa8MEwH0mpHwf",
 });
-
-const twitterClient = client.readOnly;
 
 // Basic route
 app.get("/", (req, res) => {
@@ -63,8 +61,8 @@ app.get("/analyze", async (req, res) => {
 
 const fetchTwitterData = async (query) => {
 	try {
-		const tweets = await twitterClient.v2.search(query, { max_results: 10 });
-		return tweets.data.map((tweet) => ({ text: tweet.text }));
+		const tweets = await client.get("search/tweets", { q: query, count: 10 });
+		return tweets.statuses.map((tweet) => ({ text: tweet.text }));
 	} catch (error) {
 		console.error("Error fetching tweets:", error);
 		return [];
