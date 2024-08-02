@@ -1,73 +1,43 @@
 const express = require("express");
-const bodyParser = require("body-parser");
-const natural = require("natural");
 const fs = require("fs");
 const path = require("path");
+const { SentimentAnalyzer, PorterStemmer } = require("natural");
+const sentiment = new SentimentAnalyzer("English", PorterStemmer, "afinn");
 
 const app = express();
-app.use(bodyParser.json());
+const port = 3000;
 
-const SentimentAnalyzer = natural.SentimentAnalyzer;
-const PorterStemmer = natural.PorterStemmer;
-const analyzer = new SentimentAnalyzer("English", PorterStemmer, "afinn");
+app.use(express.static("public"));
 
-// Basic route
-app.get("/", (req, res) => {
-	res.send("Market Trend Predictor API");
-});
+app.get("/analyze", (req, res) => {
+	fs.readFile("tweets.json", "utf8", (err, data) => {
+		if (err) {
+			console.error("Error reading tweets.json:", err);
+			return res.status(500).send("Internal Server Error");
+		}
 
-// Fetch and analyze data
-app.get("/analyze", async (req, res) => {
-	try {
-		const twitterData = await fetchTwitterData();
-		const sentimentScores = twitterData.map((item) =>
-			analyzeSentiment(item.text)
-		);
+		const tweets = JSON.parse(data);
+		const sentimentCounts = { positive: 0, negative: 0, neutral: 0 };
 
-		let positive = 0;
-		let negative = 0;
-		let neutral = 0;
-
-		sentimentScores.forEach((score) => {
-			if (score > 0) {
-				positive++;
-			} else if (score < 0) {
-				negative++;
+		tweets.forEach((tweet) => {
+			const analysis = sentiment.getSentiment(tweet.text.split(" "));
+			if (analysis > 0) {
+				sentimentCounts.positive += 1;
+			} else if (analysis < 0) {
+				sentimentCounts.negative += 1;
 			} else {
-				neutral++;
+				sentimentCounts.neutral += 1;
 			}
 		});
 
-		res.json({
-			twitterData,
-			sentimentScores,
-			statistics: {
-				positive,
-				negative,
-				neutral,
-			},
-		});
-	} catch (error) {
-		res.status(500).json({ error: error.message });
-	}
+		res.json({ statistics: sentimentCounts });
+	});
 });
 
-const fetchTwitterData = async () => {
-	try {
-		const dataPath = path.join(__dirname, "tweets.json");
-		const data = fs.readFileSync(dataPath, "utf8");
-		return JSON.parse(data);
-	} catch (error) {
-		console.error("Error fetching tweets:", error);
-		return [];
-	}
-};
+app.get("/", (req, res) => {
+	res.sendFile(path.join(__dirname, "public", "index.html"));
+});
 
-const analyzeSentiment = (text) => {
-	return analyzer.getSentiment(text.split(" "));
-};
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-	console.log(`Server running on http://localhost:${PORT}`);
+app.listen(port, () => {
+	console.log(`Server running at http://localhost:${port}`);
 });
