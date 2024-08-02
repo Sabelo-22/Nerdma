@@ -8,50 +8,31 @@
 		<style>
 			body {
 				font-family: Arial, sans-serif;
-				/* margin: 20px; */
-			}
-			h1 {
-				text-align: center;
-			}
-			.chart-container {
-				width: 80%;
-				margin: 0 auto;
-				margin-bottom: 40px;
-			}
-			canvas {
-				display: block;
-				max-width: 100%;
-				height: auto;
-			}
-			.chart-wrapper {
-				display: flex;
-				flex-wrap: wrap;
-				justify-content: space-around;
-			}
-			.chart {
-				flex: 1 1 45%;
-				margin: 10px;
-			}
-			.chart-container-small {
-				width: 45%;
-				margin: 10px;
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
 			}
 			nav.sidebar {
-				width: "30%";
+				width: 250px;
 				background-color: #2c3e50;
 				color: #ecf0f1;
 				padding: 20px;
 				height: 100vh;
 				position: fixed;
+				top: 0;
+				left: 0;
+				overflow-y: auto;
 			}
 			.sidebar .profile {
 				display: flex;
 				align-items: center;
 				margin-bottom: 20px;
+				border-bottom: 2px solid white;
+				padding-bottom: 10px;
 			}
 			.sidebar .profile .profile-pic {
-				width: 50px;
-				height: 50px;
+				width: 60px;
+				height: 60px;
 				border-radius: 50%;
 				margin-right: 10px;
 			}
@@ -73,37 +54,70 @@
 				display: block;
 				padding: 10px;
 				border-radius: 5px;
+				transition: background-color 0.3s;
 			}
 			.sidebar .nav-items li a:hover {
 				background-color: #34495e;
 			}
 			main.main-content {
-				margin-left: 250px;
-				padding: 20px;
-				width: calc(100% - 250px);
+				margin-left: 270px;
+				/* padding: 20px; */
+				width: calc(100% - 270px);
 			}
-			.chart-container {
-				width: 80%;
-				margin: 0 auto;
-				margin-bottom: 40px;
-			}
-			canvas {
-				display: block;
-				max-width: 100%;
-				height: auto;
+			h1 {
+				background-color: #2c3e50;
+				padding: 15px;
+				color: #ecf0f1;
+				border-radius: 5px;
+				margin: 0 0 20px;
+				text-align: center;
 			}
 			.chart-wrapper {
 				display: flex;
 				flex-wrap: wrap;
-				justify-content: space-around;
+				justify-content: space-between;
+				margin-bottom: 40px;
+				margin-left: 40px;
 			}
-			.chart-container-small {
-				width: 45%;
-				margin: 10px;
-			}
+			.chart-container-small,
 			.chart {
 				flex: 1 1 45%;
 				margin: 10px;
+			}
+			.chart-container-small {
+				max-width: 500px;
+			}
+			.chart h2 {
+				text-align: center;
+				margin-bottom: 20px;
+			}
+			.recommendations {
+				margin-top: 40px;
+				margin-left: 40px;
+			}
+			.recommendations h2 {
+				color: #2c3e50;
+				margin-bottom: 20px;
+			}
+			.recommendations ul {
+				list-style: none;
+				padding: 0;
+			}
+			.recommendations li {
+				background-color: #ecf0f1;
+				border: 1px solid #bdc3c7;
+				border-radius: 5px;
+				margin-bottom: 15px;
+				padding: 15px;
+				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			}
+			.recommendations li h3 {
+				margin: 0 0 10px;
+				color: #2980b9;
+			}
+			.recommendations li p {
+				margin: 0;
+				color: #2c3e50;
 			}
 		</style>
 	</head>
@@ -111,12 +125,11 @@
 		<nav class="sidebar">
 			<div class="profile">
 				<img
-					src="./LOGO_SB_LOGO.jpg"
-					alt="Profile"
+					src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Standard_Bank_logo.png"
+					alt="Profile Picture"
 					class="profile-pic"
-					href="./LOGO_SB_LOGO.jpg"
 				/>
-				<p class="username">John Doe</p>
+				<p class="username">Hack_Are_Tech</p>
 			</div>
 			<ul class="nav-items">
 				<li><a href="#dashboard">Dashboard</a></li>
@@ -148,153 +161,215 @@
 				</div>
 			</div>
 
-			<script>
-				fetch("/api/tweets")
-					.then((response) => response.json())
-					.then((tweets) => {
-						const sentiments = { positive: 0, negative: 0, neutral: 0 };
-						const likes = { positive: 0, negative: 0, neutral: 0 };
-						const retweets = { positive: 0, negative: 0, neutral: 0 };
-						const replies = { positive: 0, negative: 0, neutral: 0 };
-
-						tweets.forEach((tweet) => {
-							sentiments[tweet.sentiment]++;
-							likes[tweet.sentiment] += tweet.likes;
-							retweets[tweet.sentiment] += tweet.retweets;
-							replies[tweet.sentiment] += tweet.replies;
-						});
-
-						const ctx = document
-							.getElementById("sentimentChart")
-							.getContext("2d");
-						new Chart(ctx, {
-							type: "pie",
-							data: {
-								labels: ["Positive", "Negative", "Neutral"],
-								datasets: [
-									{
-										label: "Sentiment",
-										data: [
-											sentiments.positive,
-											sentiments.negative,
-											sentiments.neutral,
-										],
-										backgroundColor: [
-											"rgba(75, 192, 192, 0.6)",
-											"rgba(255, 99, 132, 0.6)",
-											"rgba(255, 206, 86, 0.6)",
-										],
-										borderWidth: 1,
-									},
-								],
-							},
-							options: {
-								responsive: true,
-							},
-						});
-
-						const ctxAdditionalPie = document
-							.getElementById("additionalPieChart")
-							.getContext("2d");
-						new Chart(ctxAdditionalPie, {
-							type: "pie",
-							data: {
-								labels: ["Likes", "Retweets", "Replies"],
-								datasets: [
-									{
-										label: "Engagement",
-										data: [
-											likes.positive + likes.negative + likes.neutral,
-											retweets.positive + retweets.negative + retweets.neutral,
-											replies.positive + replies.negative + replies.neutral,
-										],
-										backgroundColor: [
-											"rgba(54, 162, 235, 0.6)",
-											"rgba(153, 102, 255, 0.6)",
-											"rgba(255, 159, 64, 0.6)",
-										],
-										borderWidth: 1,
-									},
-								],
-							},
-							options: {
-								responsive: true,
-							},
-						});
-					});
-
-				fetch("/api/market-data")
-					.then((response) => response.json())
-					.then((marketData) => {
-						const labels = marketData.map((data) => data.timestamp);
-						const values = marketData.map((data) => parseFloat(data.value));
-						const locations = marketData.map((data) => data.location);
-
-						const locationCounts = locations.reduce((acc, location) => {
-							acc[location] = (acc[location] || 0) + 1;
-							return acc;
-						}, {});
-
-						const ctxLine = document
-							.getElementById("lineChart")
-							.getContext("2d");
-						new Chart(ctxLine, {
-							type: "line",
-							data: {
-								labels: labels,
-								datasets: [
-									{
-										label: "Market Value",
-										data: values,
-										backgroundColor: "rgba(75, 192, 192, 0.2)",
-										borderColor: "rgba(75, 192, 192, 1)",
-										borderWidth: 1,
-										fill: true,
-									},
-								],
-							},
-							options: {
-								responsive: true,
-								scales: {
-									x: {
-										beginAtZero: true,
-									},
-									y: {
-										beginAtZero: true,
-									},
-								},
-							},
-						});
-
-						const ctxBar = document.getElementById("barChart").getContext("2d");
-						new Chart(ctxBar, {
-							type: "bar",
-							data: {
-								labels: Object.keys(locationCounts),
-								datasets: [
-									{
-										label: "Number of Entries",
-										data: Object.values(locationCounts),
-										backgroundColor: "rgba(153, 102, 255, 0.6)",
-										borderColor: "rgba(153, 102, 255, 1)",
-										borderWidth: 1,
-									},
-								],
-							},
-							options: {
-								responsive: true,
-								scales: {
-									x: {
-										beginAtZero: true,
-									},
-									y: {
-										beginAtZero: true,
-									},
-								},
-							},
-						});
-					});
-			</script>
+			<div class="recommendations">
+				<h2>Recommendations for Reducing Customer Frustrations</h2>
+				<ul>
+					<li>
+						<h3>Improve Customer Service Responsiveness</h3>
+						<p>
+							Increase response speed with chatbots and ensure efficient
+							handling by customer service representatives. Monitor and allocate
+							resources based on peak times and types of queries.
+						</p>
+					</li>
+					<li>
+						<h3>Address Common Complaints</h3>
+						<p>
+							Analyze recurring complaints and update policies as needed.
+							Provide proactive communication about known issues and their
+							resolutions.
+						</p>
+					</li>
+					<li>
+						<h3>Enhance Digital Experience</h3>
+						<p>
+							Conduct usability testing and keep digital platforms updated.
+							Implement feedback mechanisms for continuous improvement.
+						</p>
+					</li>
+					<li>
+						<h3>Personalize Customer Interactions</h3>
+						<p>
+							Personalize communication and solutions based on customer data.
+							Use feedback to tailor improvements.
+						</p>
+					</li>
+					<li>
+						<h3>Enhance Transparency</h3>
+						<p>
+							Provide clear information about fees, changes, and disruptions.
+							Offer educational resources for better understanding of services.
+						</p>
+					</li>
+					<li>
+						<h3>Implement Effective Complaint Resolution</h3>
+						<p>
+							Develop clear processes for resolving complaints. Empower staff to
+							handle issues effectively and track resolution metrics.
+						</p>
+					</li>
+					<li>
+						<h3>Foster Positive Customer Engagement</h3>
+						<p>
+							Engage customers with initiatives and recognize loyal customers.
+							Support community events aligned with customer interests.
+						</p>
+					</li>
+					<li>
+						<h3>Regularly Review and Update Policies</h3>
+						<p>
+							Review and update policies based on feedback and industry trends.
+							Involve customers in policy development for better alignment with
+							their needs.
+						</p>
+					</li>
+				</ul>
+			</div>
 		</main>
+		<script>
+			fetch("/api/tweets")
+				.then((response) => response.json())
+				.then((tweets) => {
+					const sentiments = { positive: 0, negative: 0, neutral: 0 };
+					const likes = { positive: 0, negative: 0, neutral: 0 };
+					const retweets = { positive: 0, negative: 0, neutral: 0 };
+					const replies = { positive: 0, negative: 0, neutral: 0 };
+
+					tweets.forEach((tweet) => {
+						sentiments[tweet.sentiment]++;
+						likes[tweet.sentiment] += tweet.likes;
+						retweets[tweet.sentiment] += tweet.retweets;
+						replies[tweet.sentiment] += tweet.replies;
+					});
+
+					const ctx = document
+						.getElementById("sentimentChart")
+						.getContext("2d");
+					new Chart(ctx, {
+						type: "pie",
+						data: {
+							labels: ["Positive", "Negative", "Neutral"],
+							datasets: [
+								{
+									label: "Sentiment",
+									data: [
+										sentiments.positive,
+										sentiments.negative,
+										sentiments.neutral,
+									],
+									backgroundColor: [
+										"rgba(75, 192, 192, 0.6)",
+										"rgba(255, 99, 132, 0.6)",
+										"rgba(255, 206, 86, 0.6)",
+									],
+									borderWidth: 1,
+								},
+							],
+						},
+						options: {
+							responsive: true,
+						},
+					});
+
+					const ctxAdditionalPie = document
+						.getElementById("additionalPieChart")
+						.getContext("2d");
+					new Chart(ctxAdditionalPie, {
+						type: "pie",
+						data: {
+							labels: ["Likes", "Retweets", "Replies"],
+							datasets: [
+								{
+									label: "Engagement",
+									data: [
+										likes.positive + likes.negative + likes.neutral,
+										retweets.positive + retweets.negative + retweets.neutral,
+										replies.positive + replies.negative + replies.neutral,
+									],
+									backgroundColor: [
+										"rgba(54, 162, 235, 0.6)",
+										"rgba(153, 102, 255, 0.6)",
+										"rgba(255, 159, 64, 0.6)",
+									],
+									borderWidth: 1,
+								},
+							],
+						},
+						options: {
+							responsive: true,
+						},
+					});
+				});
+
+			fetch("/api/market-data")
+				.then((response) => response.json())
+				.then((marketData) => {
+					const labels = marketData.map((data) => data.timestamp);
+					const values = marketData.map((data) => parseFloat(data.value));
+					const locations = marketData.map((data) => data.location);
+
+					const locationCounts = locations.reduce((acc, location) => {
+						acc[location] = (acc[location] || 0) + 1;
+						return acc;
+					}, {});
+
+					const ctxLine = document.getElementById("lineChart").getContext("2d");
+					new Chart(ctxLine, {
+						type: "line",
+						data: {
+							labels: labels,
+							datasets: [
+								{
+									label: "Market Value",
+									data: values,
+									backgroundColor: "rgba(75, 192, 192, 0.2)",
+									borderColor: "rgba(75, 192, 192, 1)",
+									borderWidth: 1,
+									fill: true,
+								},
+							],
+						},
+						options: {
+							responsive: true,
+							scales: {
+								x: {
+									beginAtZero: true,
+								},
+								y: {
+									beginAtZero: true,
+								},
+							},
+						},
+					});
+
+					const ctxBar = document.getElementById("barChart").getContext("2d");
+					new Chart(ctxBar, {
+						type: "bar",
+						data: {
+							labels: Object.keys(locationCounts),
+							datasets: [
+								{
+									label: "Number of Entries",
+									data: Object.values(locationCounts),
+									backgroundColor: "rgba(153, 102, 255, 0.6)",
+									borderColor: "rgba(153, 102, 255, 1)",
+									borderWidth: 1,
+								},
+							],
+						},
+						options: {
+							responsive: true,
+							scales: {
+								x: {
+									beginAtZero: true,
+								},
+								y: {
+									beginAtZero: true,
+								},
+							},
+						},
+					});
+				});
+		</script>
 	</body>
 </html>
