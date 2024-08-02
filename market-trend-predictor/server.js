@@ -1,41 +1,49 @@
 const express = require("express");
+const fs = require("fs");
 const path = require("path");
-const {
-	preprocessMarketData,
-	calculateDailyReturns,
-	calculateRollingAverages,
-} = require("./preprocess");
+const csv = require("csv-parser");
+const { sentimentAnalysis } = require("./sentimentAnalysis"); // Import your sentiment analysis function
 
 const app = express();
-const port = 3000;
+const PORT = 3000;
 
-app.use(express.static("public"));
+// Middleware to serve static files
+app.use(express.static(__dirname)); // Serve files from the current directory
 
-app.get("/analyze", async (req, res) => {
-	try {
-		const data = await preprocessMarketData(
-			path.join(__dirname, "data", "market_data.csv")
-		);
-		const returnsData = calculateDailyReturns(data);
-		const rollingMean10 = calculateRollingAverages(data, 10);
-		const rollingMean50 = calculateRollingAverages(data, 50);
+// Route to serve tweets and sentiment analysis
+app.get("/api/tweets", (req, res) => {
+	fs.readFile(path.join(__dirname, "tweets.json"), "utf-8", (err, data) => {
+		if (err) {
+			return res.status(500).json({ error: "Error reading tweets file" });
+		}
 
-		const trendSlope =
-			(returnsData[returnsData.length - 1].close - returnsData[0].close) /
-			returnsData.length;
+		const tweets = JSON.parse(data);
+		const results = tweets.map((tweet) => ({
+			text: tweet.text,
+			sentiment: sentimentAnalysis(tweet.text),
+		}));
 
-		res.json({
-			data: returnsData,
-			rollingMean10,
-			rollingMean50,
-			trendSlope,
-		});
-	} catch (error) {
-		console.error(error);
-		res.status(500).json({ error: "Failed to analyze market data" });
-	}
+		res.json(results);
+	});
 });
 
-app.listen(port, () => {
-	console.log(`Server running at http://localhost:${port}`);
+// Route to serve market data
+app.get("/api/market-data", (req, res) => {
+	const results = [];
+	fs.createReadStream(path.join(__dirname, "data", "market_data.csv"))
+		.pipe(csv())
+		.on("data", (row) => results.push(row))
+		.on("end", () => {
+			res.json(results);
+		});
+});
+
+// Serve the HTML file
+app.get("/", (req, res) => {
+	res.sendFile(path.join(__dirname, "index.html"));
+});
+
+// Start the server
+app.listen(PORT, () => {
+	console.log(`Server running on http://localhost:${PORT}`);
 });

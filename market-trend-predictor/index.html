@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Market Trend Predictor and Recommendation System</title>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	</head>
+	<body>
+		<h1>Sentiment Analysis of Tweets</h1>
+		<canvas id="sentimentChart" width="400" height="200"></canvas>
+
+		<h1>Market Data Visualization</h1>
+		<canvas id="marketChart" width="400" height="200"></canvas>
+
+		<script>
+			// Fetch and display sentiment data
+			fetch("/api/tweets")
+				.then((response) => response.json())
+				.then((data) => {
+					const sentiments = data.map((item) => item.sentiment);
+					const sentimentCounts = {
+						positive: sentiments.filter((s) => s === "positive").length,
+						negative: sentiments.filter((s) => s === "negative").length,
+						neutral: sentiments.filter((s) => s === "neutral").length,
+					};
+
+					const ctx = document
+						.getElementById("sentimentChart")
+						.getContext("2d");
+					new Chart(ctx, {
+						type: "pie",
+						data: {
+							labels: ["Positive", "Negative", "Neutral"],
+							datasets: [
+								{
+									data: Object.values(sentimentCounts),
+									backgroundColor: ["#36A2EB", "#FF6384", "#FFCE56"],
+								},
+							],
+						},
+					});
+				});
+
+			// Fetch and display market data
+			fetch("/api/market-data")
+				.then((response) => response.json())
+				.then((data) => {
+					const labels = data.map((row) => row.date);
+					const values = data.map((row) => parseFloat(row.value));
+
+					const ctx = document.getElementById("marketChart").getContext("2d");
+					new Chart(ctx, {
+						type: "line",
+						data: {
+							labels: labels,
+							datasets: [
+								{
+									label: "Market Value",
+									data: values,
+									borderColor: "#FF5733",
+									fill: false,
+								},
+							],
+						},
+					});
+				});
+		</script>
+	</body>
+</html>
