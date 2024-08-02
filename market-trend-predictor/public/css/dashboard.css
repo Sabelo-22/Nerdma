@@ -1,0 +1,73 @@
+/* styles.css */
+
+/* Basic reset */
+body,
+html {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.container {
+	display: flex;
+}
+
+.sidebar {
+	width: 250px;
+	background-color: #2c3e50;
+	color: #ecf0f1;
+	height: 100vh;
+	padding: 20px;
+	position: fixed;
+}
+
+.sidebar .profile {
+	display: flex;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+.sidebar .profile .profile-pic {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	margin-right: 10px;
+}
+
+.sidebar .profile .username {
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.sidebar .nav-items {
+	list-style: none;
+	padding: 0;
+}
+
+.sidebar .nav-items li {
+	margin-bottom: 10px;
+}
+
+.sidebar .nav-items li a {
+	color: #ecf0f1;
+	text-decoration: none;
+	font-size: 16px;
+	display: block;
+	padding: 10px;
+	border-radius: 5px;
+}
+
+.sidebar .nav-items li a:hover {
+	background-color: #34495e;
+}
+
+.main-content {
+	margin-left: 250px;
+	padding: 20px;
+	flex-grow: 1;
+}
+
+h1 {
+	font-size: 24px;
+	color: #2c3e50;
+}
