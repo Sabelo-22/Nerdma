@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Market Trend Predictor and Recommendation System</title>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				margin: 20px;
+			}
+			h1 {
+				text-align: center;
+			}
+			.chart-container {
+				width: 80%;
+				margin: 0 auto;
+				margin-bottom: 40px;
+			}
+			canvas {
+				display: block;
+				max-width: 100%;
+				height: auto;
+			}
+			.chart-wrapper {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: space-around;
+			}
+			.chart {
+				flex: 1 1 45%;
+				margin: 10px;
+			}
+			.chart-container-small {
+				width: 45%;
+				margin: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Sentiment Analysis of Tweets</h1>
+		<div class="chart-wrapper">
+			<div class="chart-container-small">
+				<canvas id="sentimentChart"></canvas>
+			</div>
+			<div class="chart-container-small">
+				<canvas id="additionalPieChart"></canvas>
+			</div>
+		</div>
+
+		<h1>Market Data Visualization</h1>
+		<div class="chart-wrapper">
+			<div class="chart">
+				<h2>Market Value Over Time</h2>
+				<canvas id="lineChart"></canvas>
+			</div>
+			<div class="chart">
+				<h2>Number of Entries by Location</h2>
+				<canvas id="barChart"></canvas>
+			</div>
+		</div>
+
+		<script>
+			// Fetch and display sentiment data
+			fetch("/api/tweets")
+				.then((response) => response.json())
+				.then((data) => {
+					const sentiments = data.map((item) => item.sentiment);
+					const sentimentCounts = {
+						positive: sentiments.filter((s) => s === "positive").length,
+						negative: sentiments.filter((s) => s === "negative").length,
+						neutral: sentiments.filter((s) => s === "neutral").length,
+					};
+
+					const sentimentCtx = document
+						.getElementById("sentimentChart")
+						.getContext("2d");
+					new Chart(sentimentCtx, {
+						type: "pie",
+						data: {
+							labels: ["Positive", "Negative", "Neutral"],
+							datasets: [
+								{
+									data: Object.values(sentimentCounts),
+									backgroundColor: ["#36A2EB", "#FF6384", "#FFCE56"],
+								},
+							],
+						},
+						options: {
+							responsive: true,
+							plugins: {
+								legend: {
+									position: "top",
+								},
+								tooltip: {
+									callbacks: {
+										label: function (tooltipItem) {
+											return tooltipItem.label + ": " + tooltipItem.raw;
+										},
+									},
+								},
+							},
+						},
+					});
+				})
+				.catch((error) => console.error("Error fetching tweets:", error));
+
+			// Fetch and display additional metrics
+			fetch("/api/market-data")
+				.then((response) => response.json())
+				.then((data) => {
+					if (data.length === 0) {
+						console.error("No market data available");
+						return;
+					}
+
+					const labels = data.map((row) =>
+						new Date(row.timestamp).toLocaleDateString()
+					);
+					const values = data.map((row) => parseFloat(row.value));
+					const locations = data.map((row) => row.location);
+					const uniqueLocations = [...new Set(locations)];
+					const locationCounts = uniqueLocations.map(
+						(location) => locations.filter((loc) => loc === location).length
+					);
+					const likes = data.map((row) => row.likes).reduce((a, b) => a + b, 0);
+					const retweets = data
+						.map((row) => row.retweets)
+						.reduce((a, b) => a + b, 0);
+					const replies = data
+						.map((row) => row.replies)
+						.reduce((a, b) => a + b, 0);
+
+					// Line chart
+					const lineCtx = document.getElementById("lineChart").getContext("2d");
+					new Chart(lineCtx, {
+						type: "line",
+						data: {
+							labels: labels,
+							datasets: [
+								{
+									label: "Market Value",
+									data: values,
+									borderColor: "#FF5733",
+									backgroundColor: "rgba(255, 87, 51, 0.2)",
+									borderWidth: 1,
+									fill: true,
+								},
+							],
+						},
+						options: {
+							responsive: true,
+							scales: {
+								x: {
+									title: {
+										display: true,
+										text: "Date",
+									},
+								},
+								y: {
+									title: {
+										display: true,
+										text: "Value",
+									},
+								},
+							},
+						},
+					});
+
+					// Bar chart for locations
+					const barCtx = document.getElementById("barChart").getContext("2d");
+					new Chart(barCtx, {
+						type: "bar",
+						data: {
+							labels: uniqueLocations,
+							datasets: [
+								{
+									label: "Number of Entries",
+									data: locationCounts,
+									backgroundColor: "#4BC0C0",
+									borderColor: "#4BC0C0",
+									borderWidth: 1,
+								},
+							],
+						},
+						options: {
+							responsive: true,
+							scales: {
+								x: {
+									title: {
+										display: true,
+										text: "Location",
+									},
+								},
+								y: {
+									title: {
+										display: true,
+										text: "Number of Entries",
+									},
+								},
+							},
+						},
+					});
+
+					// Additional Pie chart for other metrics
+					const additionalPieCtx = document
+						.getElementById("additionalPieChart")
+						.getContext("2d");
+					new Chart(additionalPieCtx, {
+						type: "pie",
+						data: {
+							labels: ["Likes", "Retweets", "Replies"],
+							datasets: [
+								{
+									data: [likes, retweets, replies],
+									backgroundColor: ["#FFCE56", "#FF6384", "#36A2EB"],
+								},
+							],
+						},
+						options: {
+							responsive: true,
+							plugins: {
+								legend: {
+									position: "top",
+								},
+								tooltip: {
+									callbacks: {
+										label: function (tooltipItem) {
+											return tooltipItem.label + ": " + tooltipItem.raw;
+										},
+									},
+								},
+							},
+						},
+					});
+				})
+				.catch((error) => console.error("Error fetching market data:", error));
+		</script>
+	</body>
+</html>
