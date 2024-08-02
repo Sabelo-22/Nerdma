@@ -1,107 +1,506 @@
 [
     {
-        "text": "Naspers is doing great in the market today!"
+        "tweet": "I had a great experience with Standard Bank's customer service.",
+        "likes": 10,
+        "retweets": 2,
+        "replies": 1
     },
     {
-        "text": "I'm not sure about Naspers' current strategy."
+        "tweet": "Standard Bank helped me resolve my issue quickly. Very satisfied!",
+        "likes": 15,
+        "retweets": 3,
+        "replies": 2
     },
     {
-        "text": "Naspers stock is plummeting."
+        "tweet": "I'm very disappointed with Standard Bank. They didn't answer my queries.",
+        "likes": 5,
+        "retweets": 1,
+        "replies": 3
     },
     {
-        "text": "Naspers has shown impressive growth in recent quarters."
+        "tweet": "Standard Bank's mobile app is fantastic and easy to use!",
+        "likes": 20,
+        "retweets": 5,
+        "replies": 2
     },
     {
-        "text": "There are concerns about Naspers' investment decisions."
+        "tweet": "Terrible service from Standard Bank. No response to my emails.",
+        "likes": 3,
+        "retweets": 1,
+        "replies": 4
     },
     {
-        "text": "Naspers is making strategic moves in the tech sector."
+        "tweet": "Happy with the loan approval process at Standard Bank.",
+        "likes": 12,
+        "retweets": 2,
+        "replies": 1
     },
     {
-        "text": "Naspers needs to address its recent market performance issues."
+        "tweet": "Standard Bank needs to improve their customer service. No replies to my queries.",
+        "likes": 4,
+        "retweets": 2,
+        "replies": 3
     },
     {
-        "text": "Naspers is innovating with new technology partnerships."
+        "tweet": "Had an amazing experience at Standard Bank. Highly recommend!",
+        "likes": 25,
+        "retweets": 6,
+        "replies": 3
     },
     {
-        "text": "The recent drop in Naspers' stock price is worrisome."
+        "tweet": "Standard Bank's support team is very helpful.",
+        "likes": 18,
+        "retweets": 4,
+        "replies": 2
     },
     {
-        "text": "Naspers' latest product launch has been a huge success."
+        "tweet": "Frustrated with Standard Bank. They haven't answered my questions.",
+        "likes": 2,
+        "retweets": 1,
+        "replies": 3
     },
     {
-        "text": "Naspers' revenue growth is not meeting expectations."
+        "tweet": "Excellent banking services provided by Standard Bank.",
+        "likes": 22,
+        "retweets": 5,
+        "replies": 2
     },
     {
-        "text": "Positive outlook for Naspers' future developments."
+        "tweet": "Standard Bank has been ignoring my emails. Poor service.",
+        "likes": 3,
+        "retweets": 2,
+        "replies": 4
     },
     {
-        "text": "Naspers should consider diversifying its investments further."
+        "tweet": "Great experience with Standard Bank's online banking.",
+        "likes": 16,
+        "retweets": 3,
+        "replies": 1
     },
     {
-        "text": "Naspers' new CEO is bringing fresh ideas to the company."
+        "tweet": "Standard Bank needs to improve their response time to queries.",
+        "likes": 5,
+        "retweets": 2,
+        "replies": 3
     },
     {
-        "text": "Naspers is facing increased competition in the tech industry."
+        "tweet": "Standard Bank offers the best interest rates.",
+        "likes": 21,
+        "retweets": 4,
+        "replies": 2
     },
     {
-        "text": "The market response to Naspers' recent acquisitions has been mixed."
+        "tweet": "Very dissatisfied with Standard Bank. No replies to my inquiries.",
+        "likes": 4,
+        "retweets": 1,
+        "replies": 3
     },
     {
-        "text": "Naspers' latest earnings report was better than expected."
+        "tweet": "Standard Bank's customer service is top-notch.",
+        "likes": 19,
+        "retweets": 5,
+        "replies": 2
     },
     {
-        "text": "Concerns about Naspers' leadership are affecting stock performance."
+        "tweet": "Waiting for a response from Standard Bank for weeks. Unacceptable.",
+        "likes": 2,
+        "retweets": 1,
+        "replies": 4
     },
     {
-        "text": "Naspers is well-positioned for long-term success despite current challenges."
+        "tweet": "Had a pleasant experience with Standard Bank's mortgage service.",
+        "likes": 13,
+        "retweets": 3,
+        "replies": 1
     },
     {
-        "text": "Naspers' investment in digital media is paying off."
+        "tweet": "Standard Bank has great financial advisors.",
+        "likes": 17,
+        "retweets": 4,
+        "replies": 2
     },
     {
-        "text": "There's a lot of optimism around Naspers' upcoming projects."
+        "tweet": "Standard Bank is terrible compared to FNB. FNB always answers my queries.",
+        "likes": 3,
+        "retweets": 1,
+        "replies": 3
     },
     {
-        "text": "Naspers has been struggling to maintain its market share."
+        "tweet": "ABSA is much better than Standard Bank. Standard Bank's customer service is awful.",
+        "likes": 5,
+        "retweets": 2,
+        "replies": 4
     },
     {
-        "text": "The company's strategic pivot could lead to future growth for Naspers."
+        "tweet": "Capitec offers better rates and customer service than Standard Bank.",
+        "likes": 7,
+        "retweets": 2,
+        "replies": 1
     },
     {
-        "text": "Naspers' recent product failures have been disappointing."
+        "tweet": "I switched from Standard Bank to FNB and the service difference is night and day.",
+        "likes": 8,
+        "retweets": 3,
+        "replies": 2
     },
     {
-        "text": "Investors are cautiously optimistic about Naspers' future."
+        "tweet": "Nedbank's online banking is superior to Standard Bank's.",
+        "likes": 6,
+        "retweets": 1,
+        "replies": 2
     },
     {
-        "text": "Naspers' expansion into new markets is a positive development."
+        "tweet": "Standard Bank can't compete with Capitec's customer support.",
+        "likes": 4,
+        "retweets": 1,
+        "replies": 3
     },
     {
-        "text": "Naspers has faced some setbacks, but its long-term prospects remain strong."
+        "tweet": "Standard Bank is the worst compared to ABSA. They never answer my calls.",
+        "likes": 3,
+        "retweets": 1,
+        "replies": 2
     },
     {
-        "text": "The latest news about Naspers shows a positive turnaround."
+        "tweet": "Standard Bank is falling behind. FNB provides much better service.",
+        "likes": 6,
+        "retweets": 2,
+        "replies": 1
     },
     {
-        "text": "Naspers is focusing on improving its customer experience."
+        "tweet": "Standard Bank could learn a lot from Capitec's customer service.",
+        "likes": 7,
+        "retweets": 3,
+        "replies": 2
     },
     {
-        "text": "The financial health of Naspers is under scrutiny."
+        "tweet": "I regret switching from Nedbank to Standard Bank. What a mistake!",
+        "likes": 2,
+        "retweets": 1,
+        "replies": 3
     },
     {
-        "text": "Naspers' commitment to innovation is evident in its recent projects."
+        "tweet": "ABSA's loan process is much smoother than Standard Bank's.",
+        "likes": 5,
+        "retweets": 2,
+        "replies": 4
     },
     {
-        "text": "There's uncertainty about Naspers' short-term market performance."
+        "tweet": "Standard Bank's support is horrendous. FNB is way better.",
+        "likes": 4,
+        "retweets": 1,
+        "replies": 3
     },
     {
-        "text": "Naspers' efforts to cut costs are showing some results."
+        "tweet": "I moved my business to Capitec because Standard Bank's service is awful.",
+        "likes": 6,
+        "retweets": 2,
+        "replies": 1
     },
     {
-        "text": "Naspers' growth in emerging markets is a good sign."
+        "tweet": "Standard Bank is terrible. ABSA always responds quickly.",
+        "likes": 3,
+        "retweets": 1,
+        "replies": 3
     },
     {
-        "text": "Naspers needs to address its current operational inefficiencies."
+        "tweet": "Very unhappy with Standard Bank's service. Moving to FNB.",
+        "likes": 5,
+        "retweets": 2,
+        "replies": 4
+    },
+    {
+        "tweet": "Capitec's mobile app is way better than Standard Bank's.",
+        "likes": 7,
+        "retweets": 2,
+        "replies": 1
+    },
+    {
+        "tweet": "Switching from Standard Bank to Nedbank was the best decision.",
+        "likes": 8,
+        "retweets": 3,
+        "replies": 2
+    },
+    {
+        "tweet": "Standard Bank needs to improve. FNB is way ahead.",
+        "likes": 6,
+        "retweets": 1,
+        "replies": 2
+    },
+    {
+        "tweet": "Capitec offers better customer service than Standard Bank.",
+        "likes": 4,
+        "retweets": 1,
+        "replies": 3
+    },
+    {
+        "tweet": "Standard Bank is the worst compared to ABSA. They never answer my calls.",
+        "likes": 3,
+        "retweets": 1,
+        "replies": 2
+    },
+    {
+        "tweet": "Standard Bank is falling behind. FNB provides much better service.",
+        "likes": 6,
+        "retweets": 2,
+        "replies": 1
+    },
+    {
+        "tweet": "Standard Bank could learn a lot from Capitec's customer service.",
+        "likes": 7,
+        "retweets": 3,
+        "replies": 2
+    },
+    {
+        "tweet": "I regret switching from Nedbank to Standard Bank. What a mistake!",
+        "likes": 2,
+        "retweets": 1,
+        "replies": 3
+    },
+    {
+        "tweet": "ABSA's loan process is much smoother than Standard Bank's.",
+        "likes": 5,
+        "retweets": 2,
+        "replies": 4
+    },
+    {
+        "tweet": "Standard Bank's support is horrendous. FNB is way better.",
+        "likes": 4,
+        "retweets": 1,
+        "replies": 3
+    },
+    {
+        "tweet": "I moved my business to Capitec because Standard Bank's service is awful.",
+        "likes": 6,
+        "retweets": 2,
+        "replies": 1
+    },
+    {
+        "tweet": "Standard Bank is terrible. ABSA always responds quickly.",
+        "likes": 3,
+        "retweets": 1,
+        "replies": 3
+    },
+    {
+        "tweet": "Very unhappy with Standard Bank's service. Moving to FNB.",
+        "likes": 5,
+        "retweets": 2,
+        "replies": 4
+    },
+    {
+        "tweet": "Capitec's mobile app is way better than Standard Bank's.",
+        "likes": 7,
+        "retweets": 2,
+        "replies": 1
+    },
+    {
+        "tweet": "Switching from Standard Bank to Nedbank was the best decision.",
+        "likes": 8,
+        "retweets": 3,
+        "replies": 2
+    },
+    {
+        "tweet": "Standard Bank needs to improve. FNB is way ahead.",
+        "likes": 6,
+        "retweets": 1,
+        "replies": 2
+    },
+    {
+        "tweet": "Capitec offers better customer service than Standard Bank.",
+        "likes": 4,
+        "retweets": 1,
+        "replies": 3
+    },
+    {
+        "tweet": "Standard Bank's interest rates are higher than Capitec's.",
+        "likes": 4,
+        "retweets": 2,
+        "replies": 1
+    },
+    {
+        "tweet": "Standard Bank's support team is very helpful.",
+        "likes": 18,
+        "retweets": 4,
+        "replies": 2
+    },
+    {
+        "tweet": "Frustrated with Standard Bank. They haven't answered my questions.",
+        "likes": 2,
+        "retweets": 1,
+        "replies": 3
+    },
+    {
+        "tweet": "Excellent banking services provided by Standard Bank.",
+        "likes": 22,
+        "retweets": 5,
+        "replies": 2
+    },
+    {
+        "tweet": "Standard Bank has been ignoring my emails. Poor service.",
+        "likes": 3,
+        "retweets": 2,
+        "replies": 4
+    },
+    {
+        "tweet": "Great experience with Standard Bank's online banking.",
+        "likes": 16,
+        "retweets": 3,
+        "replies": 1
+    },
+    {
+        "tweet": "Standard Bank needs to improve their response time to queries.",
+        "likes": 5,
+        "retweets": 2,
+        "replies": 3
+    },
+    {
+        "tweet": "Standard Bank offers the best interest rates.",
+        "likes": 21,
+        "retweets": 4,
+        "replies": 2
+    },
+    {
+        "tweet": "Very dissatisfied with Standard Bank. No replies to my inquiries.",
+        "likes": 4,
+        "retweets": 1,
+        "replies": 3
+    },
+    {
+        "tweet": "Standard Bank's customer service is top-notch.",
+        "likes": 19,
+        "retweets": 5,
+        "replies": 2
+    },
+    {
+        "tweet": "Waiting for a response from Standard Bank for weeks. Unacceptable.",
+        "likes": 2,
+        "retweets": 1,
+        "replies": 4
+    },
+    {
+        "tweet": "Had a pleasant experience with Standard Bank's mortgage service.",
+        "likes": 13,
+        "retweets": 3,
+        "replies": 1
+    },
+    {
+        "tweet": "Standard Bank has great financial advisors.",
+        "likes": 17,
+        "retweets": 4,
+        "replies": 2
+    },
+    {
+        "tweet": "Standard Bank is terrible compared to FNB. FNB always answers my queries.",
+        "likes": 3,
+        "retweets": 1,
+        "replies": 3
+    },
+    {
+        "tweet": "ABSA is much better than Standard Bank. Standard Bank's customer service is awful.",
+        "likes": 5,
+        "retweets": 2,
+        "replies": 4
+    },
+    {
+        "tweet": "Capitec offers better rates and customer service than Standard Bank.",
+        "likes": 7,
+        "retweets": 2,
+        "replies": 1
+    },
+    {
+        "tweet": "I switched from Standard Bank to FNB and the service difference is night and day.",
+        "likes": 8,
+        "retweets": 3,
+        "replies": 2
+    },
+    {
+        "tweet": "Nedbank's online banking is superior to Standard Bank's.",
+        "likes": 6,
+        "retweets": 1,
+        "replies": 2
+    },
+    {
+        "tweet": "Standard Bank can't compete with Capitec's customer support.",
+        "likes": 4,
+        "retweets": 1,
+        "replies": 3
+    },
+    {
+        "tweet": "Standard Bank is the worst compared to ABSA. They never answer my calls.",
+        "likes": 3,
+        "retweets": 1,
+        "replies": 2
+    },
+    {
+        "tweet": "Standard Bank is falling behind. FNB provides much better service.",
+        "likes": 6,
+        "retweets": 2,
+        "replies": 1
+    },
+    {
+        "tweet": "Standard Bank could learn a lot from Capitec's customer service.",
+        "likes": 7,
+        "retweets": 3,
+        "replies": 2
+    },
+    {
+        "tweet": "I regret switching from Nedbank to Standard Bank. What a mistake!",
+        "likes": 2,
+        "retweets": 1,
+        "replies": 3
+    },
+    {
+        "tweet": "ABSA's loan process is much smoother than Standard Bank's.",
+        "likes": 5,
+        "retweets": 2,
+        "replies": 4
+    },
+    {
+        "tweet": "Standard Bank's support is horrendous. FNB is way better.",
+        "likes": 4,
+        "retweets": 1,
+        "replies": 3
+    },
+    {
+        "tweet": "I moved my business to Capitec because Standard Bank's service is awful.",
+        "likes": 6,
+        "retweets": 2,
+        "replies": 1
+    },
+    {
+        "tweet": "Standard Bank is terrible. ABSA always responds quickly.",
+        "likes": 3,
+        "retweets": 1,
+        "replies": 3
+    },
+    {
+        "tweet": "Very unhappy with Standard Bank's service. Moving to FNB.",
+        "likes": 5,
+        "retweets": 2,
+        "replies": 4
+    },
+    {
+        "tweet": "Capitec's mobile app is way better than Standard Bank's.",
+        "likes": 7,
+        "retweets": 2,
+        "replies": 1
+    },
+    {
+        "tweet": "Switching from Standard Bank to Nedbank was the best decision.",
+        "likes": 8,
+        "retweets": 3,
+        "replies": 2
+    },
+    {
+        "tweet": "Standard Bank needs to improve. FNB is way ahead.",
+        "likes": 6,
+        "retweets": 1,
+        "replies": 2
+    },
+    {
+        "tweet": "Capitec offers better customer service than Standard Bank.",
+        "likes": 4,
+        "retweets": 1,
+        "replies": 3
     }
 ]
