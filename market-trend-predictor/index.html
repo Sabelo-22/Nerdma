@@ -124,9 +124,13 @@
 					const locationCounts = uniqueLocations.map(
 						(location) => locations.filter((loc) => loc === location).length
 					);
-					const likes = data.map((row) => row.likes);
-					const retweets = data.map((row) => row.retweets);
-					const replies = data.map((row) => row.replies);
+					const likes = data.map((row) => row.likes).reduce((a, b) => a + b, 0);
+					const retweets = data
+						.map((row) => row.retweets)
+						.reduce((a, b) => a + b, 0);
+					const replies = data
+						.map((row) => row.replies)
+						.reduce((a, b) => a + b, 0);
 
 					// Line chart
 					const lineCtx = document.getElementById("lineChart").getContext("2d");
@@ -209,11 +213,7 @@
 							labels: ["Likes", "Retweets", "Replies"],
 							datasets: [
 								{
-									data: [
-										likes.reduce((a, b) => a + b, 0),
-										retweets.reduce((a, b) => a + b, 0),
-										replies.reduce((a, b) => a + b, 0),
-									],
+									data: [likes, retweets, replies],
 									backgroundColor: ["#FFCE56", "#FF6384", "#36A2EB"],
 								},
 							],
