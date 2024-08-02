@@ -122,3 +122,4 @@ ehthumbs.db
 # Visual Studio Code
 .vscode/
 .history/
+.vercel
