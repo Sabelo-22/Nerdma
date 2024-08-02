@@ -3,56 +3,68 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Sentiment Analysis Dashboard</title>
+		<title>Market Trend Predictor</title>
 		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	</head>
 	<body>
-		<h1>Sentiment Analysis Dashboard</h1>
-		<canvas id="sentimentChart" width="400" height="200"></canvas>
+		<h1>Market Trend Predictor</h1>
+		<canvas id="trendChart" width="400" height="200"></canvas>
 
 		<script>
-			const ctx = document.getElementById("sentimentChart").getContext("2d");
-			const sentimentChart = new Chart(ctx, {
-				type: "bar",
+			const ctx = document.getElementById("trendChart").getContext("2d");
+
+			const trendChart = new Chart(ctx, {
+				type: "line",
 				data: {
-					labels: ["Positive", "Negative", "Neutral"],
+					labels: [],
 					datasets: [
 						{
-							label: "Sentiment Count",
-							data: [0, 0, 0], // Initial data
-							backgroundColor: [
-								"rgba(75, 192, 192, 0.2)",
-								"rgba(255, 99, 132, 0.2)",
-								"rgba(255, 205, 86, 0.2)",
-							],
-							borderColor: [
-								"rgba(75, 192, 192, 1)",
-								"rgba(255, 99, 132, 1)",
-								"rgba(255, 205, 86, 1)",
-							],
+							label: "Close Price",
+							data: [],
+							borderColor: "rgba(75, 192, 192, 1)",
 							borderWidth: 1,
+							fill: false,
+						},
+						{
+							label: "10-Day Rolling Mean",
+							data: [],
+							borderColor: "rgba(255, 99, 132, 1)",
+							borderWidth: 1,
+							fill: false,
+						},
+						{
+							label: "50-Day Rolling Mean",
+							data: [],
+							borderColor: "rgba(255, 205, 86, 1)",
+							borderWidth: 1,
+							fill: false,
 						},
 					],
 				},
 				options: {
 					scales: {
 						y: {
-							beginAtZero: true,
+							beginAtZero: false,
 						},
 					},
 				},
 			});
 
-			// Fetch data from Node.js server and update the chart
 			fetch("/analyze")
 				.then((response) => response.json())
 				.then((data) => {
-					sentimentChart.data.datasets[0].data = [
-						data.statistics.positive,
-						data.statistics.negative,
-						data.statistics.neutral,
-					];
-					sentimentChart.update();
+					const labels = data.data.map((row) =>
+						new Date(row.date).toLocaleDateString()
+					);
+					const closePrices = data.data.map((row) => row.close);
+					const rollingMean10 = data.rollingMean10;
+					const rollingMean50 = data.rollingMean50;
+
+					trendChart.data.labels = labels;
+					trendChart.data.datasets[0].data = closePrices;
+					trendChart.data.datasets[1].data = rollingMean10;
+					trendChart.data.datasets[2].data = rollingMean50;
+					trendChart.update();
 				})
 				.catch((error) => console.error("Error fetching data:", error));
 		</script>
