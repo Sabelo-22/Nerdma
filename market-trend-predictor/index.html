@@ -5,14 +5,53 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Market Trend Predictor and Recommendation System</title>
 		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				margin: 20px;
+			}
+			h1 {
+				text-align: center;
+			}
+			.chart-container {
+				width: 80%;
+				margin: 0 auto;
+				margin-bottom: 40px;
+			}
+			canvas {
+				display: block;
+				max-width: 100%;
+				height: auto;
+			}
+			.chart-wrapper {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: space-around;
+			}
+			.chart {
+				flex: 1 1 45%;
+				margin: 10px;
+			}
+		</style>
 	</head>
 	<body>
 		<h1>Sentiment Analysis of Tweets</h1>
-		<canvas id="sentimentChart" width="400" height="200"></canvas>
+		<div class="chart-container">
+			<canvas id="sentimentChart"></canvas>
+		</div>
 
 		<h1>Market Data Visualization</h1>
-		<canvas id="lineChart" width="400" height="200"></canvas>
-		<canvas id="barChart" width="400" height="200"></canvas>
+		<div class="chart-wrapper">
+			<div class="chart">
+				<h2>Market Value Over Time</h2>
+				<canvas id="lineChart"></canvas>
+			</div>
+			<div class="chart">
+				<h2>Number of Entries by Location</h2>
+				<canvas id="barChart"></canvas>
+			</div>
+			<!-- Scatter chart is removed due to issues -->
+		</div>
 
 		<script>
 			// Fetch and display sentiment data
