@@ -88,7 +88,7 @@ def visualize_sentiments(df):
     plt.show()
 
 def main():
-    file_path = 'path/to/your/tweets.json'  # Update this to your file path
+    file_path = 'tweets.json'  
     df = load_data(file_path)
     df = analyze_tweets(df)
     visualize_sentiments(df)
