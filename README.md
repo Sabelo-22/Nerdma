@@ -62,8 +62,8 @@ Identify key influencers and communities to amplify their message.
 Conclusion
 Sabela stands at the forefront of social media intelligence, transforming raw comments into valuable insights. Its comprehensive features and inclusive design make it an indispensable tool for anyone looking to understand and leverage the power of social media conversations. By turning data into actionable insights, Sabela helps users navigate the ever-evolving digital landscape with confidence and clarity
 
-
 Compeleted
+
 - Data processing
 - storage
 - sentimental Analysis
@@ -71,6 +71,8 @@ Compeleted
 - Recommendation
 
 Would Improve
-- fine tune the sentiment Analysis Model to cater for more native languages 
+
+- fine tune the sentiment Analysis Model to cater for more native languages
 - fine tune the recommendation model to understand more context.
-- Improve UI and Usabilit
+- Improve UI and Usability
+- add competition tracking feature
