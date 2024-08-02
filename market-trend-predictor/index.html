@@ -32,12 +32,21 @@
 				flex: 1 1 45%;
 				margin: 10px;
 			}
+			.chart-container-small {
+				width: 45%;
+				margin: 10px;
+			}
 		</style>
 	</head>
 	<body>
 		<h1>Sentiment Analysis of Tweets</h1>
-		<div class="chart-container">
-			<canvas id="sentimentChart"></canvas>
+		<div class="chart-wrapper">
+			<div class="chart-container-small">
+				<canvas id="sentimentChart"></canvas>
+			</div>
+			<div class="chart-container-small">
+				<canvas id="additionalPieChart"></canvas>
+			</div>
 		</div>
 
 		<h1>Market Data Visualization</h1>
@@ -50,7 +59,6 @@
 				<h2>Number of Entries by Location</h2>
 				<canvas id="barChart"></canvas>
 			</div>
-			<!-- Scatter chart is removed due to issues -->
 		</div>
 
 		<script>
@@ -65,10 +73,10 @@
 						neutral: sentiments.filter((s) => s === "neutral").length,
 					};
 
-					const ctx = document
+					const sentimentCtx = document
 						.getElementById("sentimentChart")
 						.getContext("2d");
-					new Chart(ctx, {
+					new Chart(sentimentCtx, {
 						type: "pie",
 						data: {
 							labels: ["Positive", "Negative", "Neutral"],
@@ -79,11 +87,26 @@
 								},
 							],
 						},
+						options: {
+							responsive: true,
+							plugins: {
+								legend: {
+									position: "top",
+								},
+								tooltip: {
+									callbacks: {
+										label: function (tooltipItem) {
+											return tooltipItem.label + ": " + tooltipItem.raw;
+										},
+									},
+								},
+							},
+						},
 					});
 				})
 				.catch((error) => console.error("Error fetching tweets:", error));
 
-			// Fetch and display market data
+			// Fetch and display additional metrics
 			fetch("/api/market-data")
 				.then((response) => response.json())
 				.then((data) => {
@@ -101,6 +124,9 @@
 					const locationCounts = uniqueLocations.map(
 						(location) => locations.filter((loc) => loc === location).length
 					);
+					const likes = data.map((row) => row.likes);
+					const retweets = data.map((row) => row.retweets);
+					const replies = data.map((row) => row.replies);
 
 					// Line chart
 					const lineCtx = document.getElementById("lineChart").getContext("2d");
@@ -167,6 +193,42 @@
 									title: {
 										display: true,
 										text: "Number of Entries",
+									},
+								},
+							},
+						},
+					});
+
+					// Additional Pie chart for other metrics
+					const additionalPieCtx = document
+						.getElementById("additionalPieChart")
+						.getContext("2d");
+					new Chart(additionalPieCtx, {
+						type: "pie",
+						data: {
+							labels: ["Likes", "Retweets", "Replies"],
+							datasets: [
+								{
+									data: [
+										likes.reduce((a, b) => a + b, 0),
+										retweets.reduce((a, b) => a + b, 0),
+										replies.reduce((a, b) => a + b, 0),
+									],
+									backgroundColor: ["#FFCE56", "#FF6384", "#36A2EB"],
+								},
+							],
+						},
+						options: {
+							responsive: true,
+							plugins: {
+								legend: {
+									position: "top",
+								},
+								tooltip: {
+									callbacks: {
+										label: function (tooltipItem) {
+											return tooltipItem.label + ": " + tooltipItem.raw;
+										},
 									},
 								},
 							},
