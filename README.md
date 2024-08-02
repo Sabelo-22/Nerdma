@@ -165,3 +165,13 @@ Sabela is at the forefront of social media intelligence, transforming raw commen
 - **Improve UI and Usability** 🎨
   - Enhance the user interface and overall usability to ensure a more intuitive and user-friendly experience.
 >>>>>>> 40270527023ef7557ea60a838d1a7888f76c4f50
+
+Running the App
+
+Install all modules
+
+npm install
+
+to run the app navigate to market-trend-predictor and then run , node server.js on the terminal
+
+Video Presentation: https://youtu.be/_2LpBYTsISY
