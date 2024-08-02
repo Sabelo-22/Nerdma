@@ -27,7 +27,7 @@ app.get("/api/tweets", (req, res) => {
 	});
 });
 
-// Route to serve market data
+// Route to serve updated market data
 app.get("/api/market-data", (req, res) => {
 	const results = [];
 	fs.createReadStream(path.join(__dirname, "data", "market_data.csv"))

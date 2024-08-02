@@ -11,7 +11,7 @@
 		<canvas id="sentimentChart" width="400" height="200"></canvas>
 
 		<h1>Market Data Visualization</h1>
-		<canvas id="marketChart" width="400" height="200"></canvas>
+		<canvas id="lineChart" width="400" height="200"></canvas>
 
 		<script>
 			// Fetch and display sentiment data
@@ -40,17 +40,26 @@
 							],
 						},
 					});
-				});
+				})
+				.catch((error) => console.error("Error fetching tweets:", error));
 
-			// Fetch and display market data
+			// Fetch and display market data as line chart
 			fetch("/api/market-data")
 				.then((response) => response.json())
 				.then((data) => {
-					const labels = data.map((row) => row.date);
+					if (data.length === 0) {
+						console.error("No market data available");
+						return;
+					}
+
+					const labels = data.map((row) =>
+						new Date(row.timestamp).toLocaleDateString()
+					);
 					const values = data.map((row) => parseFloat(row.value));
 
-					const ctx = document.getElementById("marketChart").getContext("2d");
-					new Chart(ctx, {
+					// Line chart
+					const lineCtx = document.getElementById("lineChart").getContext("2d");
+					new Chart(lineCtx, {
 						type: "line",
 						data: {
 							labels: labels,
@@ -59,12 +68,32 @@
 									label: "Market Value",
 									data: values,
 									borderColor: "#FF5733",
-									fill: false,
+									backgroundColor: "rgba(255, 87, 51, 0.2)",
+									borderWidth: 1,
+									fill: true,
 								},
 							],
 						},
+						options: {
+							responsive: true,
+							scales: {
+								x: {
+									title: {
+										display: true,
+										text: "Date",
+									},
+								},
+								y: {
+									title: {
+										display: true,
+										text: "Value",
+									},
+								},
+							},
+						},
 					});
-				});
+				})
+				.catch((error) => console.error("Error fetching market data:", error));
 		</script>
 	</body>
 </html>
