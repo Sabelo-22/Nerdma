@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "build": "echo 'No build step needed' && mkdir -p public && cp -r * public/ && rm -rf public/{data,node_modules,.git,.gitignore,package.json,package-lock.json,netlify.toml}"
   },
   "dependencies": {
     "axios": "^0.21.4",
