@@ -76,9 +76,8 @@ Would Improve
 - fine tune the sentiment Analysis Model to cater for more native languages
 - fine tune the recommendation model to understand more context.
 - Improve UI and Usability
-- add competition tracking feature
-=======
-Sabela
+- # add competition tracking feature
+  Sabela
 
 Overview
 
@@ -87,22 +86,27 @@ Welcome to Sabela! 🎉 Sabela is an innovative and inclusive platform designed 
 ## Key Features
 
 - **Real-Time Data Extraction** ⏱️
+
   - Continuously monitors and collects comments from various social media platforms.
   - Ensures up-to-date insights with real-time data processing.
 
 - **Advanced Sentiment Analysis** 🧠
+
   - Utilizes sophisticated NLP algorithms to analyze the sentiment behind comments.
   - Categorizes feedback as positive, negative, or neutral, providing a clear picture of public opinion.
 
 - **Trend Identification** 📈
+
   - Detects trending topics and recurring themes in social media comments.
   - Helps users stay ahead of emerging trends and understand shifting public interests.
 
 - **Customizable Dashboards** 🖥️
+
   - Offers intuitive and customizable dashboards for visualizing insights.
   - Users can tailor their dashboards to focus on specific metrics and data points relevant to their needs.
 
 - **Multilingual Support** 🌍
+
   - Supports multiple languages to cater to a global audience.
   - Ensures inclusivity and accessibility for diverse user groups.
 
@@ -113,14 +117,17 @@ Welcome to Sabela! 🎉 Sabela is an innovative and inclusive platform designed 
 ## Benefits
 
 - **Enhanced Decision-Making** 📊
+
   - Empowers users with data-driven insights to make informed decisions.
   - Reduces reliance on intuition and guesswork.
 
 - **Improved Customer Engagement** 💬
+
   - Identifies areas for improvement in customer interactions and engagement.
   - Helps businesses tailor their communication strategies to better meet customer needs.
 
 - **Competitive Advantage** 🏆
+
   - Enables users to stay ahead of competitors by identifying and acting on emerging trends.
   - Provides a strategic edge through a deep understanding of market sentiment.
 
@@ -131,10 +138,12 @@ Welcome to Sabela! 🎉 Sabela is an innovative and inclusive platform designed 
 ## Use Cases
 
 - **Brand Management** 🏢
+
   - Companies can monitor brand reputation and public perception in real-time.
   - Identify potential PR issues early and respond proactively.
 
 - **Market Research** 🔬
+
   - Researchers can gain insights into consumer behavior and preferences.
   - Track the success of marketing campaigns and product launches.
 
@@ -157,14 +166,16 @@ Sabela is at the forefront of social media intelligence, transforming raw commen
 ## Areas for Improvement
 
 - **Fine-Tune Sentiment Analysis Model** 🔧
+
   - Enhance the model to better cater to more native languages, improving accuracy and inclusivity.
 
 - **Refine Recommendation Model** 🔍
+
   - Improve the recommendation engine to better understand and interpret context, leading to more relevant suggestions.
 
 - **Improve UI and Usability** 🎨
   - Enhance the user interface and overall usability to ensure a more intuitive and user-friendly experience.
->>>>>>> 40270527023ef7557ea60a838d1a7888f76c4f50
+    > > > > > > > 40270527023ef7557ea60a838d1a7888f76c4f50
 
 Running the App
 
@@ -175,3 +186,7 @@ npm install
 to run the app navigate to market-trend-predictor and then run , node server.js on the terminal
 
 Video Presentation: https://youtu.be/_2LpBYTsISY
+
+recommended use your PC to view the application
+
+Live Demo : https://sabela.netlify.app

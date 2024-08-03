@@ -1,0 +1,11 @@
+/* Hide the sidebar on mobile devices */
+@media (max-width: 768px) {
+	nav.sidebar {
+		display: none;
+	}
+	main.main-content {
+		margin: 0;
+		width: 100%;
+		text-align: center; /* Center the content */
+	}
+}
